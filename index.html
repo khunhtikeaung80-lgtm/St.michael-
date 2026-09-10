@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>St. Michael Old Students</title>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+
+
+<body>
+    <nav class="navbar">
+<a href="Admin.html">Admin</a>
+    <div class="logo">
+        St. Michael
+    </div>
+
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="#students">Old Students</a>
+        <a href="#about">About</a>
+    </div>
+
+</nav>
+       <header>
+        <h1>St. Michael Old Students</h1>
+        
+        <img src="photos/school.jpg"alt,St.michal school">
+
+        <p>
+            Our Alumni • Our Memories • Our Story
+        </p>
+    </header>
+
+
+    <main>
+
+        <div class="search-box">
+            <select id="yearFilter">
+                <option value="">All Graduation years"</option>
+                <option value="2024">2024 <option>
+                    <option value="2025">2025</option>
+                     <option value="2026">2026</option>
+            </select>
+
+            <input
+                type="text"
+                id="search"
+                placeholder="🔍 Search old students..."
+            >
+
+        </div>
+<div class="student-count">
+    <h2>Our Old Students</h2>
+    <p>
+        Total Students: <span id="studentCount">0</span>
+    </p>
+</div>
+
+        <section id="students">
+             </section>
+             <section id="about" class="about-section">
+
+    <h2>About St. Michael Old Students</h2>
+
+    <p>
+        Welcome to the St. Michael Old Students website.
+        This website is created to keep the memories,
+        stories and connections of students who studied
+        at St. Michael School.
+    </p>
+
+    <p>
+        Here, you can explore old students' profiles,
+        graduation years, school memories and messages.
+    </p>
+
+</section>
+
+    </main>
+
+
+    <footer>
+
+        <p>
+            © 2026 St. Michael Old Students
+        </p>
+        <p>
+            keeping memories alive. connecting old friends.
+        </p>
+
+    </footer>
+    <script src="script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+</script>
+<script src="script.js"></script>
+</body>
+</html>

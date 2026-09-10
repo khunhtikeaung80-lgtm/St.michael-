@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Add Student - St. Michael</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        .admin-container {
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 35px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+        }
+
+        .admin-container h2 {
+            text-align: center;
+            color: #123c88;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .add-button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: #123c88;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .add-button:hover {
+            background: #0b2d68;
+        }
+
+        .success-message {
+            text-align: center;
+            color: green;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .student-list {
+    margin-top: 40px;
+}
+
+.admin-student {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 15px;
+    margin-bottom: 12px;
+    background: #f4f7fb;
+    border-radius: 12px;
+}
+
+.admin-student-info {
+    flex: 1;
+}
+
+.admin-student-info strong {
+    color: #123c88;
+}
+
+.admin-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.edit-button,
+.delete-button {
+    border: none;
+    padding: 9px 14px;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.edit-button {
+    background: #2457a6;
+}
+
+.delete-button {
+    background: #c0392b;
+}
+
+.edit-button:hover {
+    opacity: 0.85;
+}
+
+.delete-button:hover {
+    opacity: 0.85;
+}
+
+@media (max-width: 600px) {
+
+    .admin-student {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+
+    .admin-actions {
+        justify-content: center;
+    }
+
+}
+
+
+    </style>
+
+</head>
+
+
+<body>
+
+<header>
+
+    <h1>St. Michael Old Students</h1>
+
+    <p>Admin Panel</p>
+
+</header>
+
+
+<main>
+
+    <!-- LOGIN -->
+
+    <div id="loginBox" class="admin-container">
+
+        <h2>Admin Login</h2>
+
+        <form id="loginForm">
+
+            <div class="form-group">
+
+                <label for="adminUsername">
+                    Username
+                </label>
+
+                <input
+                    type="text"
+                    id="adminUsername"
+                    placeholder="Enter username"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="adminPassword">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="adminPassword"
+                    placeholder="Enter password"
+                    required
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="add-button"
+            >
+                Login
+            </button>
+
+
+            <p id="loginMessage"></p>
+
+        </form>
+        
+
+    </div>
+
+
+    <!-- ADD STUDENT -->
+
+    <div
+        id="adminPanel"
+        class="admin-container"
+        style="display: none;"
+    >
+
+        <h2>Add Student Profile</h2>
+
+
+        <form id="studentForm">
+
+            <div class="form-group">
+
+                <label for="studentName">
+                    Student Name
+                </label>
+
+                <input
+                    type="text"
+                    id="studentName"
+                    placeholder="Enter student name"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="graduation">
+                    Graduation Year
+                </label>
+
+                <input
+                    type="number"
+                    id="graduation"
+                    placeholder="2026"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="school">
+                    School
+                </label>
+
+                <input
+                    type="text"
+                    id="school"
+                    value="St. Michael School"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="photo">
+                    Photo File Name
+                </label>
+
+                <input
+                    type="text"
+                    id="photo"
+                    placeholder="photos/student10.jpg"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="about">
+                    About
+                </label>
+
+                <textarea
+                    id="about"
+                    placeholder="Write about the student..."
+                    required
+                ></textarea>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="memories">
+                    School Memories
+                </label>
+
+                <textarea
+                    id="memories"
+                    placeholder="Write school memories..."
+                    required
+                ></textarea>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="message">
+                    Message
+                </label>
+
+                <textarea
+                    id="message"
+                    placeholder="Write a message..."
+                    required
+                ></textarea>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="add-button"
+            >
+                Add Student
+            </button>
+
+
+            <p
+                id="successMessage"
+                class="success-message"
+            ></p>
+
+        </form>
+
+
+        <button
+            id="logoutButton"
+            class="add-button"
+            style="margin-top: 15px;"
+        >
+            Logout
+        </button>
+
+    </div>
+
+
+    <a href="index.html" class="back-button">
+        ← Back to Old Students
+    </a>
+
+</main>
+
+
+<script src="script.js"></script>
+
+
+<script>
+const SUPABASE_URL = "https://wulupxzgwlwjjbomonsm.supabase.co";
+const SUPABASE_KEY = "sb_publishable_XJRSnItd3LEIQlMzjKWwsw_bCXoN6G1";
+
+const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+
+let editingStudentId = null;
+
+
+// =========================
+// ADMIN LOGIN
+// =========================
+
+const loginForm = document.getElementById("loginForm");
+const loginBox = document.getElementById("loginBox");
+const adminPanel = document.getElementById("adminPanel");
+const loginMessage = document.getElementById("loginMessage");
+const logoutButton = document.getElementById("logoutButton");
+
+loginForm.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    const username =
+        document.getElementById("adminUsername").value;
+
+    const password =
+        document.getElementById("adminPassword").value;
+
+    if (username === "admin" && password === "123456") {
+
+        loginBox.style.display = "none";
+        adminPanel.style.display = "block";
+
+        showAdminStudents();
+
+    } else {
+
+        loginMessage.textContent =
+            "Incorrect username or password.";
+
+        loginMessage.style.color = "red";
+    }
+});
+
+
+// =========================
+// LOGOUT
+// =========================
+
+logoutButton.addEventListener("click", function() {
+
+    adminPanel.style.display = "none";
+    loginBox.style.display = "block";
+
+    loginForm.reset();
+});
+
+
+// =========================
+// SHOW STUDENTS
+// =========================
+
+async function showAdminStudents() {
+
+    const container =
+        document.getElementById("adminStudents");
+
+    if (!container) {
+        return;
+    }
+
+    const { data, error } = await supabaseClient
+        .from("students")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+    if (error) {
+
+        console.error("Load error:", error);
+
+        container.innerHTML =
+            "<p>Could not load students.</p>";
+
+        return;
+    }
+
+    container.innerHTML = "";
+
+    if (!data || data.length === 0) {
+
+        container.innerHTML =
+            "<p>No students yet.</p>";
+
+        return;
+    }
+
+    data.forEach(function(student) {
+
+        const item =
+            document.createElement("div");
+
+        item.className = "admin-student";
+
+        item.innerHTML = `
+            <div class="admin-student-info">
+
+                <strong>${student.name}</strong>
+
+                <br>
+
+                Graduation:
+                ${student.graduation}
+
+            </div>
+
+            <div class="admin-actions">
+
+                <button
+                    class="edit-button"
+                    onclick="editStudent('${student.id}')"
+                >
+                    Edit
+                </button>
+
+                <button
+                    class="delete-button"
+                    onclick="deleteStudent('${student.id}')"
+                >
+                    Delete
+                </button>
+
+            </div>
+        `;
+
+        container.appendChild(item);
+    });
+}
+
+
+// =========================
+// EDIT STUDENT
+// =========================
+
+async function editStudent(id) {
+
+    const { data, error } = await supabaseClient
+        .from("students")
+        .select("*")
+        .eq("id", id)
+        .single();
+
+    if (error) {
+
+        console.error("Edit load error:", error);
+
+        return;
+    }
+
+    if (!data) {
+        return;
+    }
+
+    editingStudentId = id;
+
+    document.getElementById("studentName").value =
+        data.name || "";
+
+    document.getElementById("graduation").value =
+        data.graduation || "";
+
+    document.getElementById("school").value =
+        data.school || "";
+
+    document.getElementById("photo").value =
+        data.photo || "";
+
+    document.getElementById("about").value =
+        data.about || "";
+
+    document.getElementById("memories").value =
+        data.memories || "";
+
+    document.getElementById("message").value =
+        data.message || "";
+
+    document.querySelector(
+        "#studentForm button[type='submit']"
+    ).textContent = "Update Student";
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+// =========================
+// ADD / UPDATE STUDENT
+// =========================
+
+const form =
+    document.getElementById("studentForm");
+
+const successMessage =
+    document.getElementById("successMessage");
+
+form.addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    const studentData = {
+
+        name:
+            document.getElementById("studentName").value,
+
+        photo:
+            document.getElementById("photo").value,
+
+        graduation:
+            document.getElementById("graduation").value,
+
+        school:
+            document.getElementById("school").value,
+
+        about:
+            document.getElementById("about").value,
+
+        memories:
+            document.getElementById("memories").value,
+
+        message:
+            document.getElementById("message").value
+    };
+
+
+    // =========================
+    // UPDATE
+    // =========================
+
+    if (editingStudentId !== null) {
+
+        const { error } = await supabaseClient
+            .from("students")
+            .update(studentData)
+            .eq("id", editingStudentId);
+
+        if (error) {
+
+            console.error("Update error:", error);
+
+            successMessage.textContent =
+                "Update failed.";
+
+            return;
+        }
+
+        successMessage.textContent =
+            "Student updated successfully!";
+
+        editingStudentId = null;
+
+        document.querySelector(
+            "#studentForm button[type='submit']"
+        ).textContent = "Add Student";
+    }
+
+
+    // =========================
+    // ADD NEW STUDENT
+    // =========================
+
+    else {
+
+        const { error } = await supabaseClient
+            .from("students")
+            .insert([studentData]);
+
+        if (error) {
+
+            console.error("Insert error:", error);
+
+            successMessage.textContent =
+                "Student could not be added.";
+
+            return;
+        }
+
+        successMessage.textContent =
+            "Student added successfully!";
+    }
+
+
+    form.reset();
+
+    document.getElementById("school").value =
+        "St. Michael School";
+
+    showAdminStudents();
+});
+
+
+// =========================
+// DELETE STUDENT
+// =========================
+
+async function deleteStudent(id) {
+
+    const confirmDelete =
+        confirm("Delete this student?");
+
+    if (!confirmDelete) {
+        return;
+    }
+
+    const { error } = await supabaseClient
+        .from("students")
+        .delete()
+        .eq("id", id);
+
+    if (error) {
+
+        console.error("Delete error:", error);
+
+        return;
+    }
+
+    showAdminStudents();
+}
+</script>

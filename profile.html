@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Student Profile</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+    <style>
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+        }
+
+        header {
+            background: #123c88;
+            color: white;
+            text-align: center;
+            padding: 35px 20px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 36px;
+        }
+
+        header p {
+            margin-top: 10px;
+        }
+
+        .profile-card {
+            max-width: 750px;
+            margin: 50px auto;
+            padding: 40px;
+            background: white;
+            border-radius: 25px;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.12);
+            text-align: center;
+        }
+
+        .profile-card img {
+            width: 220px;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 6px solid #123c88;
+            margin-bottom: 20px;
+        }
+
+        .profile-card h2 {
+            font-size: 34px;
+            color: #123c88;
+            margin: 10px 0 25px;
+        }
+
+        .profile-info {
+            background: #f4f7fb;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .profile-info p {
+            margin: 10px 0;
+            color: #444;
+        }
+
+        .profile-section {
+            text-align: left;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+
+        .profile-section h3 {
+            color: #123c88;
+            font-size: 22px;
+        }
+
+        .profile-section p {
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .back-button {
+            display: block;
+            width: fit-content;
+            margin: 20px auto 40px;
+            padding: 12px 25px;
+            background: #123c88;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+        }
+
+        .back-button:hover {
+            background: #0b2d68;
+        }
+
+        @media (max-width: 600px) {
+
+            header h1 {
+                font-size: 28px;
+            }
+
+            .profile-card {
+                width: 80%;
+                margin: 30px auto;
+                padding: 25px;
+            }
+
+            .profile-card img {
+                width: 170px;
+                height: 170px;
+            }
+
+            .profile-card h2 {
+                font-size: 28px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <h1>
+        St. Michael Old Students
+    </h1>
+
+    <p>
+        Student Profile
+    </p>
+
+</header>
+
+
+<main>
+
+    <div id="profile">
+
+        <div class="profile-card">
+
+            <h2>
+                Loading...
+            </h2>
+
+            <p>
+                Loading student information...
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <a
+        href="index.html"
+        class="back-button"
+    >
+        ← Back to Old Students
+    </a>
+
+</main>
+
+
+<!-- =========================
+     SUPABASE
+========================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<script>
+
+const SUPABASE_URL =
+    "https://wulupxzgwlwjjbomonsm.supabase.co";
+
+
+const SUPABASE_KEY =
+    "sb_publishable_XJRSnItd3LEIQlMzjKWwsw_bCXoN6G1";
+
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+// =========================
+// PROFILE ELEMENT
+// =========================
+
+const profile =
+    document.getElementById("profile");
+
+
+// =========================
+// GET ID FROM URL
+// =========================
+
+const urlParams =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+const studentId =
+    urlParams.get("id");
+
+
+// =========================
+// STATIC STUDENTS
+// =========================
+
+const staticStudents = {
+
+    khun: {
+        name: "Khun Htike Aung",
+        graduation: "2024",
+        school: "St. Michael School",
+        photo: "photos/student1.jpg",
+        about: "A former student of St. Michael School.",
+        memories: "Many unforgettable memories at school.",
+        message: "Keeping the memories alive."
+    },
+
+    than: {
+        name: "Than Ling Aung",
+        graduation: "2024",
+        school: "St. Michael School",
+        photo: "photos/student3.jpg",
+        about: "A former student of St. Michael School.",
+        memories: "Good memories with friends.",
+        message: "Friends and memories forever."
+    },
+
+    htet: {
+        name: "Htet Wai Yan Soe",
+        graduation: "2026",
+        school: "St. Michael School",
+        photo: "photos/student3.jpg",
+        about: "A former student of St. Michael School.",
+        memories: "Memories that will never be forgotten.",
+        message: "Thank you, St. Michael."
+    },
+
+    nyi: {
+        name: "Nyi Nyi Naing",
+        graduation: "2026",
+        school: "St. Michael School",
+        photo: "photos/student3.jpg",
+        about: "",
+        memories: "",
+        message: ""
+    },
+
+    khaung: {
+        name: "Khaung Min Htet",
+        graduation: "2026",
+        school: "St. Michael School",
+        photo: "photos/student3.jpg",
+        about: "",
+        memories: "",
+        message: ""
+    },
+
+    po: {
+        name: "Po Lay No",
+        graduation: "2026",
+        school: "St. Michael School",
+        photo: "photos/student3.jpg",
+        about: "",
+        memories: "",
+        message: ""
+    },
+
+    david: {
+        name: "Khun David",
+        graduation: "2026",
+        school: "St. Michael School",
+        photo: "photos/student3.jpg",
+        about: "",
+        memories: "",
+        message: ""
+    },
+
+    waiyan: {
+        name: "Wai Yan Htun",
+        graduation: "2026",
+        school: "St. Michael School",
+        photo: "photos/student3.jpg",
+        about: "",
+        memories: "",
+        message: ""
+    },
+
+    christine: {
+        name: "Christine",
+        graduation: "2026",
+        school: "St. Michael School",
+        photo: "photos/student3.jpg",
+        about: "A former student of St. Michael School.",
+        memories: "",
+        message: "ကျမ ရည်းစားလိုချင်ခဲ့တယ်။"
+    },
+
+    Let: {
+        name: "Let Let Soe",
+        graduation: "2026",
+        school: "St. Michael School",
+        photo: "photos/student3.jpg",
+        about: "Hello! ငါကတော့ Let Let Soe ပါ။ ချစ်စနိုးနဲ့ သက်သက်/လက်လက် လို့လည်း ခေါ်ကြပါတယ်။ ပျော်ပျော်နေတတ်ပြီး မုန့်စားရတာနဲ့ သူငယ်ချင်းတွေနဲ့ စကားစမြည်ပြောရတာကို အကြိုက်ဆုံးပါပဲ။",
+        memories: "ကျောင်းတော်ကြီးမှာ ကုန်ဆုံးခဲ့ရတဲ့ အချိန်တွေက ငါ့ဘဝရဲ့ အမှတ်တရပေါင်းများစွာနဲ့ အလှပဆုံးသော နေ့ရက်တွေပါပဲ။ စာမေးပွဲနီးမှ ကူးရတဲ့ စာတွေ၊ စာသင်ခန်းထဲက ရယ်မောသံတွေနဲ့ သူငယ်ချင်းတွေနဲ့အတူ မုန့်စားဆင်းချိန် တိုးဝှေ့ခဲ့ကြတာတွေကို ဘယ်တော့မှ မေ့မှာမဟုတ်တော့ပါဘူး။",
+        message: "ငါတို့အားလုံး ကိုယ့်လမ်းကိုယ်လျှောက်ကြတော့မယ့်အချိန်မှာ ဘယ်နေရာပဲရောက်ရောက် အမြဲတမ်း အောင်မြင်ထွန်းကားကြပါစေလို့ ဆုတောင်းပေးပါတယ်။ သံယောဇဉ်စိမ်းစိမ်းလေးနဲ့ ခင်ခဲ့ရတဲ့ အမှတ်တရတွေကို အမြဲတမ်း သိမ်းထားတော့မှာပါ။ အမြဲတမ်း အဆက်အသွယ်မပြတ်ကြကြေးနော်!"
+    }
+
+};
+
+
+// =========================
+// LOAD PROFILE
+// =========================
+
+async function loadProfile() {
+
+    if (!studentId) {
+
+        showNotFound();
+
+        return;
+    }
+
+
+    // -------------------------
+    // 1. STATIC STUDENT
+    // -------------------------
+
+    if (staticStudents[studentId]) {
+
+        showProfile(
+            staticStudents[studentId]
+        );
+
+        return;
+    }
+
+
+    // -------------------------
+    // 2. SUPABASE STUDENT
+    // -------------------------
+
+    try {
+
+        const { data, error } =
+            await supabaseClient
+                .from("students")
+                .select("*")
+                .eq("id", studentId)
+                .maybeSingle();
+
+
+        if (error) {
+
+            console.error(
+                "Supabase error:",
+                error
+            );
+
+            showNotFound();
+
+            return;
+        }
+
+
+        if (data) {
+
+            showProfile(data);
+
+            return;
+        }
+
+
+        showNotFound();
+
+
+    } catch (error) {
+
+        console.error(
+            "Profile error:",
+            error
+        );
+
+        showNotFound();
+    }
+
+}
+
+
+// =========================
+// SHOW PROFILE
+// =========================
+
+function showProfile(student) {
+
+    profile.innerHTML = `
+
+        <div class="profile-card">
+
+            <img
+                src="${student.photo || "photos/student3.jpg"}"
+                alt="${student.name || "Student"}"
+            >
+
+
+            <h2>
+                ${student.name || ""}
+            </h2>
+
+
+            <div class="profile-info">
+
+                <p>
+
+                    <strong>
+                        Graduation Year:
+                    </strong>
+
+                    ${student.graduation || ""}
+
+                </p>
+
+
+                <p>
+
+                    <strong>
+                        School:
+                    </strong>
+
+                    ${student.school || "St. Michael School"}
+
+                </p>
+
+            </div>
+
+
+            <div class="profile-section">
+
+                <h3>
+                    About
+                </h3>
+
+                <p>
+                    ${student.about || "No information available."}
+                </p>
+
+            </div>
+
+
+            <div class="profile-section">
+
+                <h3>
+                    School Memories
+                </h3>
+
+                <p>
+                    ${student.memories || "No memories added yet."}
+                </p>
+
+            </div>
+
+
+            <div class="profile-section">
+
+                <h3>
+                    Message
+                </h3>
+
+                <p>
+                    ${student.message || "No message added yet."}
+                </p>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+// =========================
+// NOT FOUND
+// =========================
+
+function showNotFound() {
+
+    profile.innerHTML = `
+
+        <div class="profile-card">
+
+            <h2>
+                Student Not Found
+            </h2>
+
+            <p>
+                Sorry, this student profile
+                does not exist.
+            </p>
+
+        </div>
+
+    `;
+
+}
+
+
+// =========================
+// START
+// =========================
+
+loadProfile();
+
+</script>
+
+
+</body>
+
+</html>
